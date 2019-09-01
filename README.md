@@ -1,0 +1,2 @@
+# R5T.NetStandard.IO.Paths.Base
+A base library for paths-related functionality.
