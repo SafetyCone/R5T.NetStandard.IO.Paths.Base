@@ -9,6 +9,14 @@ namespace R5T.NetStandard.IO.Paths.Base
     /// </summary>
     public static class Utilities
     {
+        public const string DefaultUnsetPathValue = null;
+
+
+        /// <summary>
+        /// A common value for un-set paths against which a path can be tested using <see cref="Utilities.IsUnsetPathValue(string)"/>.
+        /// </summary>
+        public static string UnsetPathValue { get; private set; }
+
         /// <summary>
         /// Gets the current directory path.
         /// Uses <see cref="Environment.CurrentDirectory"/>.
@@ -77,6 +85,37 @@ namespace R5T.NetStandard.IO.Paths.Base
                 var output = Utilities.ExecutablePathCommandLineArgumentValue;
                 return output;
             }
+        }
+
+
+        static Utilities()
+        {
+            Utilities.ResetUnsetPathValue();
+        }
+
+        /// <summary>
+        /// Overrides the <see cref="Utilities.UnsetPathValue"/>.
+        /// </summary>
+        public static void OverrideUnsetPathValue(string unsetPathValue)
+        {
+            Utilities.UnsetPathValue = unsetPathValue;
+        }
+
+        /// <summary>
+        /// Resets the <see cref="Utilities.UnsetPathValue"/> to the <see cref="Utilities.DefaultUnsetPathValue"/>.
+        /// </summary>
+        public static void ResetUnsetPathValue()
+        {
+            Utilities.UnsetPathValue = Utilities.DefaultUnsetPathValue;
+        }
+
+        /// <summary>
+        /// Determines if a given path is equal to the current <see cref="Utilities.UnsetPathValue"/>.
+        /// </summary>
+        public static bool IsUnsetPathValue(string path)
+        {
+            var output = path == Utilities.UnsetPathValue;
+            return output;
         }
     }
 }
